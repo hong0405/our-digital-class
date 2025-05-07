@@ -1,0 +1,27 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>교사용 관리자 페이지</title>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-storage.js"></script>
+  <script src="firebase.js"></script>
+  <script src="admin.js" defer></script>
+  <style>
+    body { font-family: sans-serif; background: #fffefb; text-align: center; padding: 2rem; }
+    .card { background: #f8f9fa; padding: 2rem; max-width: 800px; margin: auto; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    ul { list-style: none; padding: 0; }
+    li { margin: 0.5rem 0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>📊 교사용 관리자 페이지</h1>
+    <p>학생들이 업로드한 모든 과제를 확인할 수 있습니다.</p>
+    <ul id="allFiles"></ul>
+  </div>
+</body>
+</html>
+

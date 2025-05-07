@@ -1,0 +1,84 @@
+<!-- dashboard.html (수정된 완전 작동 버전) -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>대시보드 - 디지털 나눔교실</title>
+  <!-- Firebase SDK (compat 버전 사용) -->
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-storage-compat.js"></script>
+
+  <!-- 설정 및 기능 스크립트 -->
+  <script src="firebase.js"></script>
+  <script>
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        alert('로그인이 필요합니다.');
+        window.location.href = 'login.html';
+      } else {
+        document.getElementById('welcome').innerText = `${user.email}님, 환영합니다!`;
+        listFiles();
+      }
+    });
+
+    function logout() {
+      firebase.auth().signOut();
+    }
+
+    async function uploadFile() {
+      const user = firebase.auth().currentUser;
+      const file = document.getElementById('fileInput').files[0];
+      if (!user || !file) return alert('로그인 또는 파일을 확인하세요.');
+
+      const storageRef = firebase.storage().ref();
+      const fileRef = storageRef.child(`uploads/${user.uid}/${file.name}`);
+
+      try {
+        await fileRef.put(file);
+        alert('✅ 업로드 완료!');
+        document.getElementById('fileInput').value = '';
+        await listFiles();
+      } catch (error) {
+        alert('❌ 업로드 실패: ' + error.message);
+      }
+    }
+
+    async function listFiles() {
+      const user = firebase.auth().currentUser;
+      if (!user) return;
+
+      const listRef = firebase.storage().ref(`uploads/${user.uid}`);
+      const result = await listRef.listAll();
+      const fileList = document.getElementById('fileList');
+      fileList.innerHTML = '';
+
+      for (const itemRef of result.items) {
+        const url = await itemRef.getDownloadURL();
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="${url}" target="_blank">${itemRef.name}</a>`;
+        fileList.appendChild(li);
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: sans-serif; background: #f9f9f9; text-align: center; padding: 2rem; }
+    .card { background: white; padding: 2rem; margin: auto; max-width: 600px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    input[type="file"] { margin-top: 1rem; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 0.5rem 0; }
+    button { padding: 0.5rem 1rem; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1 id="welcome">사용자님, 환영합니다!</h1>
+    <input type="file" id="fileInput" />
+    <button onclick="uploadFile()">📤 업로드</button>
+    <h2>제출한 파일 목록</h2>
+    <ul id="fileList"></ul>
+    <button onclick="logout()">로그아웃</button>
+  </div>
+</body>
+</html>
