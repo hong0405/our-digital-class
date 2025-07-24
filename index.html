@@ -40,12 +40,12 @@
 
     /* Calendar styles */
     .calendar {
-      max-width: 300px;
-      margin: 1rem auto;
+      width: 100%;
+      margin: 1.5rem 0;
       background: white;
-      border-radius: 8px;
+      border-radius: 12px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      padding: 1rem;
+      padding: 1.5rem;
     }
     .calendar-header {
       display: flex;
@@ -72,27 +72,6 @@
 </head>
 <body>
 
-<div id="calendar" class="calendar">
-  <div class="calendar-header">
-    <button id="prev-month">◀</button>
-    <span id="month-year"></span>
-    <button id="next-month">▶</button>
-  </div>
-  <table>
-    <thead>
-      <tr>
-        <th>일</th>
-        <th>월</th>
-        <th>화</th>
-        <th>수</th>
-        <th>목</th>
-        <th>금</th>
-        <th>토</th>
-      </tr>
-    </thead>
-    <tbody id="calendar-body"></tbody>
-  </table>
-</div>
 
 <header>
   <h1>AI기반 웹클래스: 교학상장敎學相長 플랫폼</h1>
@@ -115,6 +94,27 @@
 </nav>
 
 <section id="teacher">
+  <div id="calendar" class="calendar">
+    <div class="calendar-header">
+      <button id="prev-month">◀</button>
+      <span id="month-year"></span>
+      <button id="next-month">▶</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>일</th>
+          <th>월</th>
+          <th>화</th>
+          <th>수</th>
+          <th>목</th>
+          <th>금</th>
+          <th>토</th>
+        </tr>
+      </thead>
+      <tbody id="calendar-body"></tbody>
+    </table>
+  </div>
   <div class="card">
     <h2>📘 교사 실천 사례: Notion 기반 수업 공유</h2>
     <p>수업자료, 활동 설계, 프로젝트 기반 학습, AI 도구 활용 사례를 소개합니다.</p>
