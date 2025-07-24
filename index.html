@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>AI기반 웹클래스: 교학상장敎學相長 플랫폼</title>
+  <title>AI 기반 웹클래스: 교학상장敎學相長 플랫폼</title>
   <style>
     body { font-family: 'Pretendard', sans-serif; margin: 0; padding: 0; background: #f4f6f8; }
     header { background-color: #003366; color: white; padding: 2rem 1rem; text-align: center; }
@@ -68,13 +68,18 @@
     .calendar td {
       background: #f9f9f9;
     }
+    .calendar td.today {
+      border: 2px solid #ff9800;
+      border-radius: 50%;
+      background: #fff;
+    }
   </style>
 </head>
 <body>
 
 
 <header>
-  <h1>AI기반 웹클래스: 교학상장敎學相長 플랫폼</h1>
+<h1>AI 기반 웹클래스: 교학상장敎學相長 플랫폼</h1>
   <p>교사와 학생이 함께 만들어가는 SW · AI 기반 실천 플랫폼</p>
   <div style="margin-top: 1rem;">
     <a href="login.html">
@@ -157,6 +162,7 @@
 <script>
   const monthYear = document.getElementById('month-year');
   const calendarBody = document.getElementById('calendar-body');
+  const today = new Date();
   let currentDate = new Date();
 
   function renderCalendar(date) {
@@ -179,6 +185,13 @@
       }
       const td = document.createElement('td');
       td.textContent = day;
+      if (
+        year === today.getFullYear() &&
+        month === today.getMonth() &&
+        day === today.getDate()
+      ) {
+        td.classList.add('today');
+      }
       row.appendChild(td);
     }
     while (row.children.length < 7) {
